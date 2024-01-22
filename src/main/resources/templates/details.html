@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Details</title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body class="d-flex align-items-center justify-content-center vh-100">
+<div th:if="${incident}" class="card" style="width: 22rem;">
+    <div class="card-header">
+        <img class="card-img-top" th:src="@{/images/incident.jpg}" style="max-width: 100%; max-height: 100%;">
+        <h5 class="card-title mt-3 d-flex justify-content-center">Incident <span class="ms-2" th:text="${incident.requestNr}"></span>
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="card-text"><b>Problem Summary: </b><span th:text="${incident.problemSummary}"></span></div>
+        <div class="card-text mt-1"><b>Problem Description: </b><span th:text="${incident.problemDescription}"></span>
+        </div>
+        <div class="card-text mt-1"><b>Subsystem: </b><span th:text="${incident.subsystem}"></span></div>
+        <div class="card-text mt-1"><b>Urgency: </b><span th:text="${incident.urgency}"></span></div>
+        <div class="card-text mt-1"><b>Open Date: </b><span th:text="${incident.openDate}"></span></div>
+        <div class="card-text mt-1"><b>Close Date: </b><span th:text="${incident.closeDate}"></span></div>
+        <div class="card-text mt-1"><b>Incident Type: </b><span th:text="${incident.incidentType.name}"></span></div>
+        <div class="card-text mt-1"><b>Incident Scope: </b><span th:text="${incident.incidentType.scope.name}"></span>
+        </div>
+        <div class="card-text mt-1"><b>Incident Origin: </b><span
+                th:text="${incident.incidentType.scope.origin.name}"></span></div>
+        <div class="card-text mt-1"><b>Created By: </b><span th:text="${incident.createdBy}"></span></div>
+        <div class="card-text mt-1"><b>Created At: </b><span th:text="${incident.createdAt}"></span></div>
+        <div class="card-text mt-1"><b>Modified By: </b><span th:text="${incident.lastModifiedBy}"></span></div>
+        <div class="card-text mt-1"><b>Modified At: </b><span th:text="${incident.lastModifiedAt}"></span></div>
+    </div>
+</div>
+
+<div th:if="${error}" class="card" style="width: 20rem;">
+    <div class="card-header">
+        <img class="card-img-top" th:src="@{/images/error.png}" style="max-width: 100%; max-height: 100%;">
+        <h5 class="card-title mt-3 d-flex justify-content-center" th:text="${error}"></h5>
+    </div>
+</div>
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
