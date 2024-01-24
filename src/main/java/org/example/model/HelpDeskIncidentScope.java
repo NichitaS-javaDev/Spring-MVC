@@ -14,7 +14,7 @@ public class HelpDeskIncidentScope {
     private UUID id;
     @Size(min = 5)
     private String name;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "id")
     private HelpDeskIncidentOrigin origin;
 }

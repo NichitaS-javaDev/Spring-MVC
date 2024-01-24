@@ -6,20 +6,27 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import jdk.jfr.Description;
 import lombok.Getter;
+import lombok.Setter;
+import org.example.annotation.GenerateUUID;
+import org.example.listener.GenerateUUIDListener;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Getter
+@Setter
+@EntityListeners({AuditingEntityListener.class, GenerateUUIDListener.class})
 public class HelpDeskIncident extends BaseAuditEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long requestNr;
+    @GenerateUUID
+    private UUID requestNr;
     @Size(min = 5)
     private String subsystem;
     @Temporal(TemporalType.DATE)
-    private Date openDate;
+    private LocalDate openDate;
     @Temporal(TemporalType.DATE)
-    private Date closeDate;
+    private LocalDate closeDate;
     @Min(1)
     @Max(5)
     @Description("Where 1 is higher urgency level and 5 the lower")
@@ -28,7 +35,7 @@ public class HelpDeskIncident extends BaseAuditEntity {
     private String problemSummary;
     @Size(min = 10)
     private String problemDescription;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "id")
     private HelpDeskIncidentType incidentType;
 
