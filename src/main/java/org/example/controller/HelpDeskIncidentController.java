@@ -16,17 +16,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Controller
 @SessionAttributes({"incident", "operation"})
 public class HelpDeskIncidentController {
     private final IHelpDeskIncidentRepo incidentRepo;
     private final IHelpDeskIncidentTypeRepo typeRepo;
-
     private enum Operations {
         CREATE,
         UPDATE
     }
+    private final Logger logger = Logger.getLogger(HelpDeskIncidentController.class.getName());
 
     @Autowired
     public HelpDeskIncidentController(IHelpDeskIncidentRepo incidentRepo, IHelpDeskIncidentTypeRepo typeRepo) {
@@ -108,7 +109,7 @@ public class HelpDeskIncidentController {
                 e.printStackTrace();
             }
         } else {
-
+            logger.info("File MUST NOT be empty");
         }
 
         return "redirect:/";
